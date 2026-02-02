@@ -1,0 +1,6 @@
+gsps/src/protocol.aux
+gsps/src/protocol.log
+
+__pycache__
+
+.DS_Store
