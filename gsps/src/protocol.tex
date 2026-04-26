@@ -3,8 +3,9 @@
 \usepackage{amssymb}
 \usepackage{geometry}
 \usepackage{graphicx}
-\geometry{margin=1in}
 
+\geometry{margin=1in}
+\pagestyle{empty}
 \title{GSPS: Geometric Semantic Positioning System}
 \author{JB Larson}
 \date{\today}
@@ -14,9 +15,8 @@
 \maketitle
 
 \begin{abstract}
-I present the Geometric Semantic Positioning System (GSPS), a framework that reveals semantic structure by projecting high-dimensional embeddings onto constrained 2D geometric templates. Using 1024-dimension Alibaba-NLP/gte-large-en-v1.5 embeddings of Wikipedia articles, the GSPS system uses relative positioning to place inner nodes according to relative semantic-similarity to fixed anchor nodes.
+I present the Geometric Semantic Positioning System (GSPS), a framework that reveals semantic structure by projecting high-dimensional embeddings onto constrained 2D geometric templates. The GSPS system uses relative positioning to place inner nodes according to relative semantic-similarity to fixed anchor nodes.
 
-I introduce four primitive types: point (1-anchor), edge (2-anchor), triangle (3-anchor), and square (4-anchor).
 
 The protocol enables deterministic, framework-agnostic semantic positioning where any system with the same anchor configuration will compute identical coordinates for a given concept.
 \end{abstract}
@@ -56,7 +56,7 @@ Two systems implementing GSPS with identical:
 \end{itemize}
 
 will produce identical coordinates for any given inner node vector.
-
+\thispagestyle{empty}
 \section{Mathematical Framework}
 
 \subsection{Dynamic Pivot Calculation}
@@ -101,27 +101,28 @@ with $\kappa = 1.2$ (stiffness), ensuring $r_j \in [-1, 1]$ for $j \in \{x, y\}$
 \begin{figure}[p]
 \section{Visual Examples}
 \centering
-\includegraphics[width=0.8\linewidth]{images/gsps_v2_square.png}
-\\
+\includegraphics[width=0.64\linewidth]{images/gsps_v3_square.png}
+\\[2pt]
 \small 4-Anchor Square
 
-\centering
-\includegraphics[width=0.8\linewidth]{images/gsps_v2_triangle.png}
-\vspace{0.5em}
-\\
+\vspace{8pt}
+
+\includegraphics[width=0.64\linewidth]{images/gsps_v3_triangle.png}
+\\[2pt]
 \small 3-Anchor Triangle
 \end{figure}
 
+
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.9\linewidth]{images/gsps_v2_edge.png}
-\\
+\includegraphics[height=0.52\textheight, keepaspectratio]{images/gsps_v3_edge.png}
+\\[2pt]
 \small 2-Anchor Edge
 
-\centering
-\includegraphics[width=0.9\linewidth]{images/gsps_v2_point.png}
-\vspace{0.5em}
-\\
+\vspace{10pt}
+
+\includegraphics[height=0.52\textheight, keepaspectratio]{images/gsps_v3_point.png}
+\\[2pt]
 \small 1-Anchor Point
 \end{figure}
 
