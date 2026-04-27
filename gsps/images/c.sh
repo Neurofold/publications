@@ -3,7 +3,7 @@
 echo "SVG to PNG converter - requires rsvg-convert (librsvg2-bin) or inkscape"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SIZE=600
+SIZE=1000
 
 SVGS=(
   "gsps_v3_edge.svg"
