@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-1.2 -1.2 2.4 2.4" style="background-color: #FFFFFF;" data-encoding="gsps-native-v3.6">
+<line x1="0.1977" y1="-0.2110" x2="0.0000" y2="-0.0000" stroke="#000000" stroke-width="0.0035" stroke-opacity="0.83" stroke-linecap="round"  />
+<circle cx="0.1977" cy="-0.2110" r="0.0360" fill="#FFFFFF" stroke="none" />
+<circle cx="0.1977" cy="-0.2110" r="0.0216" fill="#000000" stroke="none" />
+<circle cx="0.1977" cy="-0.2110" r="0.0360" fill="none" stroke="#000000" stroke-width="0.0039" />
+<circle cx="0.0000" cy="-0.0000" r="0.0350" fill="#FFFFFF" stroke="none" />
+<circle cx="0.0000" cy="-0.0000" r="0.0210" fill="#000000" stroke="none" />
+<circle cx="0.0000" cy="-0.0000" r="0.0350" fill="none" stroke="#000000" stroke-width="0.0039" />
+<g style="pointer-events: none;">
+<text x="0.1977" y="-0.1250" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.0140" stroke-linejoin="round" font-family="Inter, sans-serif" font-size="0.0420" font-weight="700" text-anchor="middle" dominant-baseline="hanging"><tspan x="0.1977" dy="0em">Intelligent</tspan><tspan x="0.1977" dy="1.1em">agent</tspan></text>
+<text x="0.1977" y="-0.1250" fill="#000000" font-family="Inter, sans-serif" font-size="0.0420" font-weight="700" text-anchor="middle" dominant-baseline="hanging"><tspan x="0.1977" dy="0em">Intelligent</tspan><tspan x="0.1977" dy="1.1em">agent</tspan></text>
+</g>
+<g style="pointer-events: none;">
+<text x="0.0000" y="0.0850" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.0140" stroke-linejoin="round" font-family="Inter, sans-serif" font-size="0.0420" font-weight="700" text-anchor="middle" dominant-baseline="hanging"><tspan x="0.0000" dy="0em">Artificial</tspan><tspan x="0.0000" dy="1.1em">intelligence</tspan></text>
+<text x="0.0000" y="0.0850" fill="#000000" font-family="Inter, sans-serif" font-size="0.0420" font-weight="700" text-anchor="middle" dominant-baseline="hanging"><tspan x="0.0000" dy="0em">Artificial</tspan><tspan x="0.0000" dy="1.1em">intelligence</tspan></text>
+</g>
+</svg>

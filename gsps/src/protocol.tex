@@ -1,6 +1,5 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath}
-\usepackage{amssymb}
 \usepackage{geometry}
 \usepackage{graphicx}
 
@@ -15,88 +14,38 @@
 \maketitle
 
 \begin{abstract}
-I present the Geometric Semantic Positioning System (GSPS), a framework that reveals semantic structure by projecting high-dimensional embeddings onto constrained 2D geometric templates. The GSPS system uses relative positioning to place inner nodes according to relative semantic-similarity to fixed anchor nodes.
-
-
-The protocol enables deterministic, framework-agnostic semantic positioning where any system with the same anchor configuration will compute identical coordinates for a given concept.
+The Geometric Semantic Positioning System (GSPS) is a framework designed to project high-dimensional semantic vectors into deterministic geometric coordinates. The protocol's strength lies in its simplicity: it utilizes relative semantic similarity to dynamically position concepts within bounded spaces. This framework-agnostic approach ensures that any system sharing the same anchor configuration will compute identical spatial coordinates for a given concept, independent of a shared database.
 \end{abstract}
 
-\section{Core Principles}
+\section{Core Mechanics}
 
 \subsection{Anchor-Defined Spaces}
 
-Semantic space is bounded by 1--4 fixed anchor nodes positioned at predetermined coordinates:
+Semantic space is bounded by 1--4 fixed anchor nodes positioned at predetermined coordinates. These serve as the absolute ground truth for the layout's coordinate system:
 
 \begin{itemize}
-    \item \textbf{4-Anchor:} Square configuration $[(-1,0), (1,0), (0,1), (0,-1)]$
-    \item \textbf{3-Anchor:} Triangle configuration $[(-1,0), (1,0), (0,1)]$
-    \item \textbf{2-Anchor:} Edge configuration $[(-1,0), (1,0)]$
-    \item \textbf{1-Anchor:} Point configuration $[(0,0)]$
+    \item \textbf{4-Anchor:} Square configuration $[(-1, 0), (1, 0), (0, 1), (0, -1)]$
+    \item \textbf{3-Anchor:} Triangle configuration $[(-1, 0), (1, 0), (0, 1)]$
+    \item \textbf{2-Anchor:} Edge configuration $[(-1, 0), (1, 0)]$
+    \item \textbf{1-Anchor:} Point configuration $[(0, 0)]$
 \end{itemize}
 
-\subsection{Force-Based Positioning}
+\subsection{The Equilibrium Engine}
 
-Inner nodes (non-anchors) are positioned through:
+For spaces defined by two or more anchors, inner nodes are positioned using an auto-balancing push-and-pull system based on cosine similarity.
 
+\paragraph{1. The Dynamic Pivot}
+Instead of relying on absolute similarity thresholds, GSPS calculates a ``dynamic pivot'' for each incoming concept. This pivot is the average cosine similarity between the concept and all the fixed anchors in the layout.
+
+\paragraph{2. Relative Forces}
+The system then compares the concept's similarity to each specific anchor against that baseline pivot:
 \begin{itemize}
-    \item Gravitational attraction when cosine similarity to an anchor exceeds the dynamic pivot
-    \item Electromagnetic repulsion when cosine similarity falls below the dynamic pivot
+    \item \textbf{Attraction (Gravity):} If the similarity to an anchor is higher than the pivot, that anchor pulls the node toward it.
+    \item \textbf{Repulsion:} If the similarity is lower than the pivot, the anchor pushes the node away.
 \end{itemize}
+The strength of this force scales naturally with how far the score deviates from the pivot.
 
-The dynamic pivot is calculated as the mean cosine similarity across all anchors, enabling manifold-dependent relative positioning.
-
-\subsection{Protocol Invariance}
-
-Two systems implementing GSPS with identical:
-
-\begin{itemize}
-    \item Anchor node vectors
-    \item Anchor coordinates
-    \item Force parameters ($\alpha$, $\gamma$, $\beta$)
-\end{itemize}
-
-will produce identical coordinates for any given inner node vector.
 \thispagestyle{empty}
-\section{Mathematical Framework}
-
-\subsection{Dynamic Pivot Calculation}
-
-The dynamic pivot $\mu$ is the mean cosine similarity between the center node and all anchors:
-
-$$\mu = \frac{1}{n} \sum_{i=1}^{n} \cos(v_c, v_{a_i})$$
-
-where $v_c$ is the center vector, $v_{a_i}$ is anchor $i$'s vector, and $\cos(a,b) = \frac{a \cdot b}{\|a\| \|b\|}$.
-
-\subsection{Force Computation}
-
-For each anchor $i$, compute the deviation from pivot:
-
-$$\delta_i = \cos(v_c, v_{a_i}) - \mu$$
-
-The polarity determines attraction ($\delta_i \geq 0$) or repulsion ($\delta_i < 0$):
-
-$$\rho_i = \text{sgn}(\delta_i)$$
-
-Force magnitude scales with deviation:
-
-$$m_i = \beta + \gamma |\delta_i|^\alpha$$
-
-Force vector:
-
-$$\mathbf{F}_i = \mathbf{p}_i \cdot m_i \cdot \rho_i$$
-
-where $\mathbf{p}_i = (x_i, y_i)$ is the anchor's fixed coordinate.
-
-\subsection{Position Resolution}
-
-$$\mathbf{r} = \frac{1}{n} \sum_{i=1}^{n} \mathbf{F}_i$$
-
-Final coordinates are normalized:
-
-$$\mathbf{r}_{\text{final}} = \tanh(\kappa \cdot \mathbf{r})$$
-
-with $\kappa = 1.2$ (stiffness), ensuring $r_j \in [-1, 1]$ for $j \in \{x, y\}$.
-
 
 \begin{figure}[p]
 \section{Visual Examples}
@@ -112,7 +61,6 @@ with $\kappa = 1.2$ (stiffness), ensuring $r_j \in [-1, 1]$ for $j \in \{x, y\}$
 \small 3-Anchor Triangle
 \end{figure}
 
-
 \begin{figure}[p]
 \centering
 \includegraphics[height=0.52\textheight, keepaspectratio]{images/gsps_v3_edge.png}
@@ -125,6 +73,5 @@ with $\kappa = 1.2$ (stiffness), ensuring $r_j \in [-1, 1]$ for $j \in \{x, y\}$
 \\[2pt]
 \small 1-Anchor Point
 \end{figure}
-
 
 \end{document}
