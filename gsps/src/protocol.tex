@@ -1,9 +1,11 @@
+% /gsps/src/protocol.tex
 \documentclass[11pt]{article}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{geometry}
 \usepackage{graphicx}
 
-\geometry{margin=1in}
+\geometry{margin=0.32in}
 \pagestyle{empty}
 \title{GSPS: Geometric Semantic Positioning System}
 \author{JB Larson}
@@ -14,62 +16,71 @@
 \maketitle
 
 \begin{abstract}
-The Geometric Semantic Positioning System (GSPS) is a framework designed to project high-dimensional semantic vectors into deterministic geometric coordinates. The protocol's strength lies in its simplicity: it utilizes relative semantic similarity to dynamically position concepts within bounded spaces. This framework-agnostic approach ensures that any system sharing the same anchor configuration will compute identical spatial coordinates for a given concept, independent of a shared database.
+I present the Geometric Semantic Positioning System (GSPS), a framework that reveals semantic structure by projecting high-dimensional embeddings onto constrained 2D geometric templates. The GSPS system uses relative positioning to place inner nodes according to relative semantic-similarity to fixed anchor nodes.
+
+The protocol enables deterministic, framework-agnostic semantic positioning where any system with the same anchor configuration will compute identical coordinates for a given concept.
 \end{abstract}
 
-\section{Core Mechanics}
+\section{Core Principles}
 
 \subsection{Anchor-Defined Spaces}
 
-Semantic space is bounded by 1--4 fixed anchor nodes positioned at predetermined coordinates. These serve as the absolute ground truth for the layout's coordinate system:
+Semantic space is bounded by 1--4 fixed anchor nodes positioned at predetermined coordinates:
 
 \begin{itemize}
-    \item \textbf{4-Anchor:} Square configuration $[(-1, 0), (1, 0), (0, 1), (0, -1)]$
-    \item \textbf{3-Anchor:} Triangle configuration $[(-1, 0), (1, 0), (0, 1)]$
-    \item \textbf{2-Anchor:} Edge configuration $[(-1, 0), (1, 0)]$
-    \item \textbf{1-Anchor:} Point configuration $[(0, 0)]$
+    \item \textbf{4-Anchor:} Square configuration $[(-1,0), (1,0), (0,1), (0,-1)]$
+    \item \textbf{3-Anchor:} Triangle configuration $[(-1,0), (1,0), (0,1)]$
+    \item \textbf{2-Anchor:} Edge configuration $[(-1,0), (1,0)]$
+    \item \textbf{1-Anchor:} Point configuration $[(0,0)]$
 \end{itemize}
 
-\subsection{The Equilibrium Engine}
+\subsection{Force-Based Positioning}
 
-For spaces defined by two or more anchors, inner nodes are positioned using an auto-balancing push-and-pull system based on cosine similarity.
+Inner nodes (non-anchors) are positioned through:
 
-\paragraph{1. The Dynamic Pivot}
-Instead of relying on absolute similarity thresholds, GSPS calculates a ``dynamic pivot'' for each incoming concept. This pivot is the average cosine similarity between the concept and all the fixed anchors in the layout.
-
-\paragraph{2. Relative Forces}
-The system then compares the concept's similarity to each specific anchor against that baseline pivot:
 \begin{itemize}
-    \item \textbf{Attraction (Gravity):} If the similarity to an anchor is higher than the pivot, that anchor pulls the node toward it.
-    \item \textbf{Repulsion:} If the similarity is lower than the pivot, the anchor pushes the node away.
+    \item Gravitational attraction when cosine similarity to an anchor exceeds the dynamic pivot
+    \item Electromagnetic repulsion when cosine similarity falls below the dynamic pivot
 \end{itemize}
-The strength of this force scales naturally with how far the score deviates from the pivot.
 
+Dynamic pivot is calculated as mean cosine similarity across anchors, for manifold-dependent relative positioning.
+
+
+\section{Topological Glyphs}
+
+To convey network connectivity alongside spatial semantics, GSPS employs a nested glyph visual encoding for each node. This bi-layered structural composition provides immediate visual context regarding a node's topological role within the graph:
+
+\begin{itemize}
+    \item \textbf{Outer Glyph (Out-Degree):} The overall radius and boundary weight of the node represent its outward connectivity and total structural importance.
+    \item \textbf{Inner Glyph (In-Degree):} A solid inner core is rendered when a node acts as a destination (in-degree $> 0$), representing its gravitational pull as a target concept.
+\end{itemize}
+
+This dual-indicator approach allows observers to rapidly distinguish between source concepts, terminal concepts, and central hubs without relying strictly on explicit edge rendering.
 \thispagestyle{empty}
 
 \begin{figure}[p]
 \section{Visual Examples}
 \centering
-\includegraphics[width=0.64\linewidth]{images/gsps_v3_square.png}
+\includegraphics[width=0.6\linewidth]{images/gsps_v3_square.png}
 \\[2pt]
 \small 4-Anchor Square
 
 \vspace{8pt}
 
-\includegraphics[width=0.64\linewidth]{images/gsps_v3_triangle.png}
+\includegraphics[width=0.6\linewidth]{images/gsps_v3_triangle.png}
 \\[2pt]
 \small 3-Anchor Triangle
 \end{figure}
 
 \begin{figure}[p]
 \centering
-\includegraphics[height=0.52\textheight, keepaspectratio]{images/gsps_v3_edge.png}
+\includegraphics[width=0.6\textwidth, height=0.48\textheight, keepaspectratio=false]{images/gsps_v3_edge.png}
 \\[2pt]
 \small 2-Anchor Edge
 
-\vspace{10pt}
+\vspace{2pt}
 
-\includegraphics[height=0.52\textheight, keepaspectratio]{images/gsps_v3_point.png}
+\includegraphics[width=0.6\textwidth, height=0.48\textheight, keepaspectratio=false]{images/gsps_v3_point.png}
 \\[2pt]
 \small 1-Anchor Point
 \end{figure}
